@@ -5,21 +5,7 @@ import urllib.request
 import zipfile
 from tqdm import tqdm
 
-def download_glove(glove_dir='./glove', glove_name='glove.6B.zip'):
-    os.makedirs(glove_dir, exist_ok=True)
-    
-    glove_url = 'https://nlp.stanford.edu/data/glove.6B.zip'
-    
-    zip_path = os.path.join(glove_dir, glove_name)
-    if not os.path.exists(zip_path):
-        urllib.request.urlretrieve(glove_url, zip_path)
-        
-        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-            zip_ref.extractall(glove_dir)
-            
-    return glove_dir
-
-def load_glove_vectors(glove_path, embed_size=300):
+def load_glove_vectors(glove_path="./glove", embed_size=300):
     if embed_size not in [50, 100, 200, 300]:
         raise ValueError("embed_size must be one of: 50, 100, 200, 300")
         
@@ -66,8 +52,7 @@ def create_embedding_matrix(vocab, word2vec, embed_size=300):
     return torch.FloatTensor(embedding_matrix)
 
 def integrate_glove_embeddings(vocab, embed_size=300, trainable=False):
-    glove_dir = download_glove()
-    word2vec = load_glove_vectors(glove_dir, embed_size)
+    word2vec = load_glove_vectors()
     
     embedding_weights = create_embedding_matrix(vocab, word2vec, embed_size)
     
