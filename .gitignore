@@ -1,1 +1,3 @@
 venv
+src/data/flickr8k/Images/
+.env 
