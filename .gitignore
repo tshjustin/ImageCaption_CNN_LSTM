@@ -1,3 +1,5 @@
 venv
 src/data/flickr8k/Images/
+src/data/flickr8k/captions.txt
 .env 
+__pycache__/ 
