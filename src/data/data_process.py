@@ -13,7 +13,7 @@ def clean_captions() -> List[List[str]]:
 
         assert type(caption_list) is list, "Caption file format is wrong"
         
-        for cap in caption_list:
+        for cap in caption_list[1:]:
             if cap != "": 
                 cap_list = cap.split(",", 1) # first instance of ","
                 cleaned =  re.sub(r'[".]+', '', cap_list[1].lower())
