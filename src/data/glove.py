@@ -36,20 +36,30 @@ def load_glove_vectors(glove_path, embed_size=300):
     return word2vec
 
 def create_embedding_matrix(vocab, word2vec, embed_size=300):
+    """
+    The vocab that we created previously serves as our look up table. 
+
+    Essentially, we want a mapping of word -> its embedding matrix. 
+
+    To do so, we use a pretrained word embedding table and simply look up on the word that appears in our vocab to this matrix.
+    """
     vocab_size = len(vocab)
     
-    embedding_matrix = np.zeros((vocab_size, embed_size))
+    embedding_matrix = np.zeros((vocab_size, embed_size)) # (number row = vocab size, each word is represented as a embed_size vector)
     
     special_tokens = ["<pad>", "<start>", "<end>", "<unk>"]
     
     words_found = 0
     
     for word, idx in vocab.word2idx.items():
+        
         if word in special_tokens:
             embedding_matrix[idx] = np.random.normal(scale=0.6, size=(embed_size,))
         elif word in word2vec:
             embedding_matrix[idx] = word2vec[word]
             words_found += 1
+        
+        # an out of domain word - init to random 
         else:
             embedding_matrix[idx] = np.random.normal(scale=0.6, size=(embed_size,))
             

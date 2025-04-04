@@ -47,6 +47,9 @@ class Flickr8(Dataset):
         return image, caption 
 
 class Vocabulary:
+    """
+    Builds a vocabulary from the dataset
+    """
     def __init__(self):
         self.word2idx = {"<pad>": 0, "<start>": 1, "<end>": 2, "<unk>": 3}
         self.idx2word = {0: "<pad>", 1: "<start>", 2: "<end>", 3: "<unk>"}
@@ -66,7 +69,7 @@ class Vocabulary:
     def __len__(self):
         return len(self.word2idx)
     
-    def build_vocab(self, captions, threshold=5):
+    def build_vocab(self, captions, threshold=3):
         counter = Counter()
         for caption in captions:
             counter.update(caption.split())
@@ -174,7 +177,7 @@ def get_partial_sequence_loader(image_caption_list, vocab, transform, batch_size
 def create_vocabulary(caption_data, min_word_freq=5):
     vocab = Vocabulary()
     all_captions = [item[1] for item in caption_data]
-    vocab.build_vocab(all_captions, threshold=min_word_freq)
+    vocab.build_vocab(all_captions, threshold=min_word_freq) # builds the vocab from the flick8k  
     return vocab
 
 def create_data_loaders(train_data, test_data, vocab, transform, batch_size=32):
