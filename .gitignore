@@ -3,3 +3,5 @@ src/data/flickr8k/Images/
 src/data/flickr8k/captions.txt
 .env 
 __pycache__/ 
+wandb/
+src/data/glove/glove.6B.300d.txt
