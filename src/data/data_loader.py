@@ -148,11 +148,18 @@ def collate_fn(batch):
     we would need to use padding.
 
     collate_fn essnetially is a glue that allows us to specify the way examples stick together in a batch + add more modifications  
+
+
+    Since we are throwing in a batch of data, we need to represent them as a "block" of data. To do so: 
+    1. For images since same shape: stack (piles up the data in a specified dimension - Requires each entry to be of the same size 
+       (recall size = total number of elements | shape = dimensions of object))
+
+    2. For captions, since of difference lengths, 
     """
     batch.sort(key=lambda x: x[3], reverse=True)
-    images, captions, targets, lengths = zip(*batch) # unpack
+    images, captions, targets, lengths = zip(*batch) # unpack - images = [img1, img2,...] | captions = [cap1, cap2... (of varying length)]
     images = torch.stack(images, 0) # stack to single tensor 
-    captions_padded = pad_sequence(captions, batch_first=True, padding_value=0) # pad to same length 
+    captions_padded = pad_sequence(captions, batch_first=True, padding_value=0) # pad all the caption to same length => outputs = (B * T), B=batchsize, T=length of longest seq
 
     targets = torch.tensor(targets)
     lengths = torch.tensor(lengths)

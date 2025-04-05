@@ -4,6 +4,9 @@ import torch.nn.functional as F
 
 class LSTMDecoder(nn.Module):
     def __init__(self, embed_size, hidden_size, vocab_size, num_layers=1, dropout=0.5, pretrained_embeddings=None):
+        """
+        init just sets up the archtiecture, the acutal using part goes in the forward
+        """
         super(LSTMDecoder, self).__init__()
         
         self.embed_size = embed_size
@@ -11,13 +14,13 @@ class LSTMDecoder(nn.Module):
         self.vocab_size = vocab_size
         self.num_layers = num_layers
         
-        self.embed = nn.Embedding(vocab_size, embed_size)
+        self.embed = nn.Embedding(vocab_size, embed_size) # creates embedding layer that converts token indices to dense vector -> Shapee of (vocab_size, embed_size (how each word is represented))
         
         if pretrained_embeddings is not None:
             self.embed.weight = nn.Parameter(pretrained_embeddings)
         
-        self.lstm = nn.LSTM(embed_size, hidden_size, num_layers, batch_first=True, dropout=dropout if num_layers > 1 else 0)
-        self.linear = nn.Linear(hidden_size, vocab_size)
+        self.lstm = nn.LSTM(embed_size, hidden_size, num_layers, batch_first=True, dropout=dropout if num_layers > 1 else 0) # creates the archtitecture 
+        self.linear = nn.Linear(hidden_size, vocab_size) # project the hidden state to the vocab probabilities
         self.dropout = nn.Dropout(dropout)
         
     def forward(self, features, captions, lengths=None, max_length=20) :
@@ -35,7 +38,7 @@ class LSTMDecoder(nn.Module):
             return outputs
         else:
             states = None
-            outputs = []
+            outputs = [] 
             
             inputs = features
             

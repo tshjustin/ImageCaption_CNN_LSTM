@@ -21,12 +21,14 @@ class EncoderCNN(nn.Module):
         self.relu = nn.ReLU()
         
     def forward(self, images):
-        with torch.no_grad():
+        # Since we froze the weights of the resnet, this is another additional check to prevent gradient collections 
+        with torch.no_grad(): 
 
             features = self.resnet(images) # [batch_size, # feature channels, h, w]
             
             features = features.reshape(features.size(0), -1) # flattens the features to create a single vector per image - [batch_size, # feature channels]
-        
+                                                              # reshape(*desired dims) => in this case = (# keep batch size, -1 (automatically calulcate the needed))
+                                                              # flat => Flatten to 1D array. In this case, a BATCH of 1D array (The above ops flatten across each sample. Note NOT across different samples as it would be meaningless)
         features = self.embed(features)
         features = self.bn(features)
         features = self.relu(features)

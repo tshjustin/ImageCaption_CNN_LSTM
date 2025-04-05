@@ -9,7 +9,7 @@ def load_glove_vectors(glove_path="./glove", embed_size=300):
     if embed_size not in [50, 100, 200, 300]:
         raise ValueError("embed_size must be one of: 50, 100, 200, 300")
         
-    glove_file = os.path.join(glove_path, f'glove.6B.{embed_size}d.txt')
+    glove_file = os.path.join(glove_path, f'glove.6B.{embed_size}d.txt') # in .txt form, the representation is = word v1 v2 v3 v4 ... v300 => {word: [v1, ..., v300]}
     
     word2vec = {}
     with open(glove_file, 'r', encoding='utf-8') as f:
