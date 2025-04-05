@@ -32,6 +32,8 @@ def train(train_loader, encoder, decoder, criterion, encoder_optimizer, decoder_
         batch_size = outputs.size(0)
         
         loss = 0
+        
+        # for each sample in the batch
         for j in range(batch_size):
             seq_length = lengths[j].item() - 1
             prediction = outputs[j, seq_length, :]
