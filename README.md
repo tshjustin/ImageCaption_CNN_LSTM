@@ -3,6 +3,12 @@
 This is a simple project on Image Captioning with CNN and LSTM. 
 
 
+
+### Data Processing Flow 
+![alt text](assets/p1.png)
+
+![alt text](assets/p2.png)
+
 ### Diagram Flow 
 ![alt text](assets/image.png)
 
