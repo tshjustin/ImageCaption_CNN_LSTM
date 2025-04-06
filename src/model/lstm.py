@@ -72,23 +72,6 @@ class LSTMDecoder(nn.Module):
                 inputs = self.embed(outputs[-1].argmax(1)).unsqueeze(1)
                 
             return torch.stack(outputs, 1)
-        
-    def sample(self, features, states=None, max_len=20, start_token=0, end_token=1):
-        sampled_ids = []
-        inputs = features.unsqueeze(1)
-        
-        for i in range(max_len):
-            hiddens, states = self.lstm(inputs, states)
-            outputs = self.linear(hiddens.squeeze(1))
-            predicted = outputs.argmax(1)
-            sampled_ids.append(predicted.item())
-            
-            if predicted.item() == end_token:
-                break
-                
-            inputs = self.embed(predicted).unsqueeze(1)
-            
-        return sampled_ids
 """
 data = [
     Image(1), Image(2),           # t=0: all sequences have tokens
