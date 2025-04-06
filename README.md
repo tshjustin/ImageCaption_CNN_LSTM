@@ -1,7 +1,8 @@
 ## Image Captioning with CNN & LSTM
 
-This is a simple project on Image Captioning with CNN and LSTM. 
+PyTorch implemetation of CNN-LSTM image captioning trained with Flick8k. 
 
+This project purpose is to understand and visualize the transformation of shapes and sizes of tensors, alonside batching and padding for LSTM processing. 
 
 
 ### Data Processing Flow 
