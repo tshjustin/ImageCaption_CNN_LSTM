@@ -24,7 +24,7 @@ def setup_wandb():
     config.learning_rate = 3e-4
     config.batch_size = 64
     config.epochs = 10
-    config.embed_size = 256
+    config.embed_size = 300
     config.hidden_size = 512
     config.num_layers = 1
 
@@ -57,7 +57,7 @@ def main():
     
     if use_glove:
         from data.glove import integrate_glove_embeddings
-        pretrained_embeddings = integrate_glove_embeddings(vocab, embed_size=embed_size, trainable=True)
+        pretrained_embeddings = integrate_glove_embeddings(vocab, embed_size=embed_size)
     
     train_loader, val_loader = create_data_loaders(
         train_data, test_data, vocab, transform, batch_size

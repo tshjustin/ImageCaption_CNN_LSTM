@@ -51,7 +51,7 @@ def create_embedding_matrix(vocab, word2vec, embed_size=300):
             
     return torch.FloatTensor(embedding_matrix)
 
-def integrate_glove_embeddings(vocab, embed_size=300, trainable=False):
+def integrate_glove_embeddings(vocab, embed_size=300):
     word2vec = load_glove_vectors()
     
     embedding_weights = create_embedding_matrix(vocab, word2vec, embed_size)
