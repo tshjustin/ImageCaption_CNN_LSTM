@@ -9,6 +9,8 @@ This is a simple project on Image Captioning with CNN and LSTM.
 
 ![alt text](assets/p2.png)
 
+![alt text](assets/p3.png)
+
 ### Diagram Flow 
 ![alt text](assets/image.png)
 
